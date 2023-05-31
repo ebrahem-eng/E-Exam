@@ -40,7 +40,7 @@
                                         aria-label="Close"></button>
                                 </div>
                             @endif
-                            <form method="get" action="{{ route('teacher.question2.subject') }}">
+                            <form method="get" action="{{ route('teacher.exam.subject.new.question2') }}">
                                 @csrf
 
                                 <div class="mb-3">
@@ -93,6 +93,8 @@
                                 </div>
 
                                 <input type="hidden" name="subject_id" value="{{$subject_id}}" />
+                                <input type="hidden" name="exam_id" value="{{$exam_id}}" />
+                                <input type="hidden" name="number_question" value="{{$number_questions}}"/>
 
                                 <button type="submit" class="btn btn-primary mt-2">Next</button>
                             </form>

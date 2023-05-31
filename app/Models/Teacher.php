@@ -11,7 +11,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class Teacher extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable , HasRoles , SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -52,13 +52,24 @@ class Teacher extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    //علاقة المدرس بالصفوف 
+
     public function classes()
     {
-        return $this->belongsToMany(Classe::class, 'class__teachers'  , 'teacher_id'  , 'class_id');
+        return $this->belongsToMany(Classe::class, 'class__teachers', 'teacher_id', 'class_id');
     }
+
+    //علاقة المدرس بالمواد 
 
     public function subjects()
     {
-        return $this->belongsToMany(Subject::class, 'subject__teachers'  , 'teacher_id'  , 'subject_id');
+        return $this->belongsToMany(Subject::class, 'subject__teachers', 'teacher_id', 'subject_id');
+    }
+
+    //علاقة الامتحان بالمدرس  
+
+    public function exams()
+    {
+        return $this->hasMany(Exam::class, 'teacher_id', 'id');
     }
 }

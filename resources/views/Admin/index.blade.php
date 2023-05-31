@@ -46,9 +46,9 @@
 
                                                 </div>
                                                 <span class="fw-semibold d-block mb-1">Student</span>
-                                                <h3 class="card-title mb-2">$12,628</h3>
+                                                <h3 class="card-title mb-2">50</h3>
                                                 <small class="text-success fw-semibold"><i
-                                                        class="bx bx-up-arrow-alt"></i> +72.80%</small>
+                                                        class="bx bx-up-arrow-alt"></i> +20%</small>
                                             </div>
                                         </div>
                                     </div>
@@ -65,9 +65,9 @@
 
                                                 </div>
                                                 <span>Teachers</span>
-                                                <h3 class="card-title text-nowrap mb-1">$4,679</h3>
+                                                <h3 class="card-title text-nowrap mb-1">10</h3>
                                                 <small class="text-success fw-semibold"><i
-                                                        class="bx bx-up-arrow-alt"></i> +28.42%</small>
+                                                        class="bx bx-up-arrow-alt"></i> +3%</small>
                                             </div>
                                         </div>
                                     </div>
@@ -88,9 +88,9 @@
 
                                                 </div>
                                                 <span class="d-block mb-1">Classes</span>
-                                                <h3 class="card-title text-nowrap mb-2">$2,456</h3>
-                                                <small class="text-danger fw-semibold"><i
-                                                        class="bx bx-down-arrow-alt"></i> -14.82%</small>
+                                                <h3 class="card-title text-nowrap mb-2">15</h3>
+                                                <small class="text-success fw-semibold"><i
+                                                        class="bx bx-up-arrow-alt"></i> +2%</small>
                                             </div>
                                         </div>
                                     </div>
@@ -106,9 +106,9 @@
 
                                                 </div>
                                                 <span class="fw-semibold d-block mb-1">Subjects</span>
-                                                <h3 class="card-title mb-2">$14,857</h3>
+                                                <h3 class="card-title mb-2">30</h3>
                                                 <small class="text-success fw-semibold"><i
-                                                        class="bx bx-up-arrow-alt"></i> +28.14%</small>
+                                                        class="bx bx-up-arrow-alt"></i> +20%</small>
                                             </div>
                                         </div>
                                     </div>

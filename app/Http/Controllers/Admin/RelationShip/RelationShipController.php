@@ -131,6 +131,7 @@ class RelationShipController extends Controller
 
     //=====================end subject function ================
 
+
     //======================Teacher Function ====================
 
     //عرض صفحة الصفوف الموجودة لدى المدرس

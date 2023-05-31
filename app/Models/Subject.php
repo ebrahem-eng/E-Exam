@@ -41,4 +41,10 @@ class Subject extends Model
         return $this->belongsToMany(Teacher::class, 'subject__teachers' , 'subject_id','teacher_id'  );
     }
 
+    //علاقة الامتحان بالمادة
+
+    public function exams()
+    {
+        return $this->hasMany(Exam::class , 'subject_id' , 'id');
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\Auth\AuthController;
 use App\Http\Controllers\Admin\Class\ClassController as ClassClassController;
 use App\Http\Controllers\Admin\ClassController;
 use App\Http\Controllers\Admin\RelationShip\RelationShipController;
@@ -22,14 +23,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 //=================== Auth Route ==============
-Route::get('admin/login', [AdminController::class, 'login_page'])->name('admin.login.page');
-Route::post('admin/login/check', [AdminController::class, 'login_check'])->name('admin.login.check');
+Route::get('admin/login', [AuthController::class, 'login_page'])->name('admin.login.page');
+Route::post('admin/login/check', [AuthController::class, 'login_check'])->name('admin.login.check');
 
 
 
 Route::middleware(['admin'])->name('admin.')->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
-    Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
     //=============class route ============
     Route::resource('/class', ClassClassController::class);

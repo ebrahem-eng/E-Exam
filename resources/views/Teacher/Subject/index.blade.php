@@ -70,12 +70,25 @@
                                         @endif
 
                                     </p>
-                                    <form action="{{ route('teacher.question.subject') }}" method="GET">
-                                        @csrf
-                                        <button class="btn btn-outline-primary">Add Question</button>
-                                        <button class="btn btn-outline-success">Add Exam</button>
-                                        <input type="hidden" name="subject_id" value="{{ $subject->id }}" />
-                                    </form>
+                                    <div class="row">
+                                        <div class="col">
+                                            <form action="{{ route('teacher.question.subject') }}" method="GET">
+                                                @csrf
+                                                <button class="btn btn-outline-primary">Add Question</button>
+                                                <input type="hidden" name="subject_id" value="{{ $subject->id }}" />
+                                            </form>
+                                        </div>
+                                        <div class="col">
+                                            <form action="{{ route('teacher.exam.subject') }}" method="GET">
+                                                @csrf
+                                                <button class="btn btn-outline-success">Add Exam</button>
+                                                <input type="hidden" name="subject_id" value="{{ $subject->id }}" />
+                                            </form>
+                                        </div>
+                                    </div>
+
+
+
 
                                 </div>
                             </div>

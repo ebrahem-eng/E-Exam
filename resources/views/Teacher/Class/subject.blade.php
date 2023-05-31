@@ -63,11 +63,12 @@
                                         <form action="{{route('teacher.question.subject')}}" method="GET">
                                             @csrf
                                             <button class="btn btn-primary" style="margin-right: 150px;">Add Question</button>
-                                            <input type="hidden" name="subject_id" value="{{$subject->id}}" />
+                                            <input type="hidden" name="subject_id" value="{{$subject->id}}"/>
                                         </form>
-                                       <form action="" method="GET">
+                                        <form action="{{route('teacher.exam.subject')}}" method="GET">
                                         @csrf
                                         <button class="btn btn-success" style="margin-top:-64px;">Add Exam</button>
+                                        <input type="hidden" name="subject_id" value="{{$subject->id}}" />
                                        </form>
                                         
                                       </td>

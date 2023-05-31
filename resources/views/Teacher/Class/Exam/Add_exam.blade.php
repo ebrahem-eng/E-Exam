@@ -7,7 +7,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Add Question</title>
+    <title>Add Exam</title>
 
     <meta name="description" content="" />
 
@@ -28,10 +28,12 @@
                 <div class="col-lg-6 mt-5 mx-auto">
                     <div class="card  mb-4">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0">Question Details</h5>
+                            <h5 class="mb-0">Create Exam</h5>
 
                         </div>
                         <div class="card-body">
+
+                            {{-- message section --}}
 
                             @if (session('store_success_message'))
                                 <div class="alert alert-success alert-dismissible" role="alert">
@@ -40,59 +42,61 @@
                                         aria-label="Close"></button>
                                 </div>
                             @endif
-                            <form method="get" action="{{ route('teacher.question2.subject') }}">
+
+                            {{-- end message section --}}
+
+
+                            <form method="get" action="{{ route('teacher.exam2.subject') }}">
                                 @csrf
 
                                 <div class="mb-3">
-                                    <label class="form-label" for="option">Name Question</label>
+                                    <label class="form-label" for="option">Title Exam</label>
                                     <div class="input-group input-group-merge">
                                         <span class="input-group-text"></span>
-                                        <input type="text" class="form-control phone-mask" name="name"
-                                             required />
+                                        <input type="text" class="form-control phone-mask" name="title_exam"
+                                            required />
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="option">Mark Question</label>
+                                    <label class="form-label" for="option">Mark Exam</label>
                                     <div class="input-group input-group-merge">
                                         <span class="input-group-text"></span>
-                                        <input type="number" class="form-control phone-mask" name="mark"
-                                             required />
+                                        <input type="number" class="form-control phone-mask" name="mark_exam"
+                                            required />
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="option">Description Question</label>
+                                    <label class="form-label" for="option">Time Of Exam (Minutes)</label>
                                     <div class="input-group input-group-merge">
                                         <span class="input-group-text"></span>
-                                        <input type="text" class="form-control phone-mask" name="description"
-                                             required />
+                                        <input type="number" class="form-control phone-mask" name="time_exam"
+                                            required />
                                     </div>
+
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="exampleFormControlSelect1" class="form-label">Number Answer</label>
-                                    <select class="form-select" name="number_of_options" id="number-of-options"
+                                    <label for="exampleFormControlSelect1" class="form-label">Status Exam</label>
+                                    <select class="form-select" name="status_exam" id="number-of-options"
                                         aria-label="Default select example">
                                         <option selected>Open this select menu</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                        <option value="4">Four</option>
-                                        <option value="5">Five</option>
+                                        <option value="1">Active</option>
+                                        <option value="0">Not Active</option>
                                     </select>
                                 </div>
 
                                 <div id="options-container">
                                     <div class="mb-3">
-                                        <label class="form-label" for="option">Answer</label>
+                                        <label class="form-label" for="option">Number Of Question in Exam </label>
                                         <div class="input-group input-group-merge">
                                             <span class="input-group-text"></span>
-                                            <input type="text" class="form-control phone-mask" name="answer_1"
+                                            <input type="number" class="form-control phone-mask" name="number_question"
                                                 id="answer_1" required />
                                         </div>
                                     </div>
                                 </div>
 
-                                <input type="hidden" name="subject_id" value="{{$subject_id}}" />
+                                <input type="hidden" name="subject_id" value="{{ $subject_id }}" />
 
                                 <button type="submit" class="btn btn-primary mt-2">Next</button>
                             </form>
@@ -108,31 +112,3 @@
 
 </html>
 @include('layouts.Teacher.link')
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const select = document.getElementById("number-of-options");
-        const optionsContainer = document.getElementById("options-container");
-
-        select.addEventListener("change", function() {
-            optionsContainer.innerHTML = "";
-
-            for (let i = 0; i < select.value; i++) {
-                const label = document.createElement("label");
-                const labelText = document.createTextNode(`Answer ${i + 1}: `);
-                label.appendChild(labelText);
-
-                const input = document.createElement("input");
-                input.setAttribute("type", "text");
-                input.setAttribute("name", `answer_${i + 1}`);
-                input.setAttribute("id", `answer_${i + 1}`);
-                input.setAttribute("required", "");
-                input.setAttribute("class", "form-control phone-mask");
-
-                label.appendChild(input);
-                optionsContainer.appendChild(label);
-                optionsContainer.appendChild(document.createElement("br"));
-            }
-        });
-    });
-</script>
