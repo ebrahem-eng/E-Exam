@@ -95,20 +95,31 @@
                                 </div>
 
                                 <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="500">
-                                    <form action="" method="post" class="form-box">
-                                        <h3 class="h4 text-black mb-4">Sign Up</h3>
+
+                                    {{-- message section --}}
+                                    @if (session('error_login_message'))
+                                        <div class="alert alert-danger alert-dismissible" role="alert">
+                                            {{ session('error_login_message') }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                        </div>
+                                    @endif
+
+                                    {{-- end message section --}}
+                                    <form action="{{ route('student.login.check') }}" method="POST" class="form-box">
+                                        @csrf
+                                        <h3 class="h4 text-black mb-4">Login</h3>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Email Addresss">
+                                            <input type="text" class="form-control" placeholder="Email Addresss"
+                                                name="email" required>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control" placeholder="Password">
+                                            <input type="password" class="form-control" placeholder="Password"
+                                                name="password" required>
                                         </div>
-                                        <div class="form-group mb-4">
-                                            <input type="password" class="form-control"
-                                                placeholder="Re-type Password">
-                                        </div>
+
                                         <div class="form-group">
-                                            <input type="submit" class="btn btn-primary btn-pill" value="Sign up">
+                                            <button type="submit" class="btn btn-primary btn-pill">Login</button>
                                         </div>
                                     </form>
 

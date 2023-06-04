@@ -19,13 +19,23 @@ class Classe extends Model
         'deleted_by',
     ];
 
+    //علاقة المادة بالصف
+
     public function subjects()
     {
         return $this->belongsToMany(Subject::class , 'classe_subjects' , 'class_id' , 'subject_id');
     }
 
+    //علاقة الصف بالمدرس
+
     public function teachers()
     {
         return $this->belongsToMany(Teacher::class, 'class__teachers' , 'class_id' , 'teacher_id');
+    }
+
+    //علاقة الصف والطالب
+    public function students()
+    {
+        return $this->belongsToMany(Student::class, 'student__classes' , 'class_id' , 'student_id');
     }
 }
