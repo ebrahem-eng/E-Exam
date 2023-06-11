@@ -43,5 +43,13 @@ class Exam extends Model
      {
         return $this->belongsTo(Teacher::class , 'teacher_id' , 'id');
      }
+
+     //علاقة الامتحان بالطالب 
+
+     public function students()
+     {
+        return $this->belongsToMany(Student::class , 'student_exams' , 'exam_id' , 'student_id');
+     }
+
  
 }

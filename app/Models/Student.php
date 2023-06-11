@@ -56,4 +56,18 @@ class Student extends Authenticatable
           return $this->belongsToMany(Classe::class, 'student__classes', 'student_id', 'class_id');
       }
 
+        //علاقة الطالب بالمادة  
+
+        public function subjects()
+        {
+            return $this->belongsToMany(Subject::class, 'student_subjects', 'student_id', 'subject_id');
+        }
+
+       //علاقة الطالب بالامتحان  
+
+       public function exams()
+       {
+           return $this->belongsToMany(Exam::class, 'student_exams', 'student_id', 'exam_id');
+       }
+
 }

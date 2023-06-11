@@ -42,6 +42,13 @@
                                 </div>
                             @endif
 
+                            @if (session('error_message'))
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                {{ session('error_message') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        @endif
                             {{-- end message success --}}
 
 

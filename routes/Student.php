@@ -5,7 +5,9 @@ use App\Http\Controllers\Student\Auth\AuthController;
 use App\Http\Controllers\Student\Class\ClassController as ClassClassController;
 use App\Http\Controllers\Student\Class\Subject\Exam\ExamController as ExamExamController;
 use App\Http\Controllers\Student\Class\Subject\SubjectController as ClassSubjectSubjectController;
+use App\Http\Controllers\Student\Profile\ProfileController as ProfileProfileController;
 use App\Http\Controllers\Student\StudentController;
+use App\Http\Controllers\Student\Subject\SubjectController as StudentSubjectSubjectController;
 use App\Http\Controllers\Teacher\Class\ClassController;
 use App\Http\Controllers\Teacher\Class\Subject\Exam\ExamController;
 use App\Http\Controllers\Teacher\Class\Subject\Question\QuestionController;
@@ -36,7 +38,7 @@ Route::middleware(['student'])->name('student.')->prefix('student')->group(funct
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
     //=========================== class routes =================
-    Route::get('/class' , [ClassClassController::class , 'index'])->name('class.index');
+    Route::get('/class', [ClassClassController::class, 'index'])->name('class.index');
 
 
     //========================== subject in class routes ==================
@@ -45,22 +47,33 @@ Route::middleware(['student'])->name('student.')->prefix('student')->group(funct
 
     //========================= exam in subject route =======================
 
-    Route::get('/subject/new/exam' , [ClassSubjectSubjectController::class , 'new_exam_in_subject'])->name('class.subject.new.exam');
+    Route::get('/subject/new/exam', [ClassSubjectSubjectController::class, 'new_exam_in_subject'])->name('class.subject.new.exam');
 
     //========================= join exam and show the question =======================
 
-    Route::get('/subject/exam/question' , [ExamExamController::class , 'show_question'])->name('subject.exam.question');
+    Route::get('/subject/exam/question', [ExamExamController::class, 'show_question'])->name('subject.exam.question');
 
-    //========================= store student answer ===========================
-
-    Route::post('/subject/exam/answer/question' , [ExamExamController::class , 'store_answer_question'])->name('subject.exam.answer.store');
+    //========================= store student answer ====================================
 
 
-    //========================= My  exams ===============================
-    Route::get('/subject/my/exam' , [ClassSubjectSubjectController::class , 'my_exam_subject'])->name('subject.my.exam');
+    Route::post('/subject/exam/answer/question', [ExamExamController::class, 'store_answer_question'])->name('subject.exam.answer.store');
 
-    Route::get('/subject/mark/answer/exam' , [ExamExamController::class , 'answer_exam'])->name('subject.exam.mark.answer');
+
+    //========================= student exams ========================================
+
+    Route::get('/subject/my/exam', [ClassSubjectSubjectController::class, 'my_exam_subject'])->name('subject.my.exam');
+
+    Route::get('/subject/mark/answer/exam', [ExamExamController::class, 'answer_exam'])->name('subject.exam.mark.answer');
+
+
+    //=========================== show subject student without class ================
+
+    Route::get('/subject/index', [StudentSubjectSubjectController::class, 'index'])->name('subject.index');
+
+    //=========================== profile route ===========================
+
+    Route::get('/profile', [ProfileProfileController::class, 'index'])->name('profile.index');
+    Route::put('/profile/personal_info/update/{id}', [ProfileProfileController::class, 'personal_update'])->name('profile.personal.update');
+    Route::put('/profile/reset_password/update/{id}', [ProfileProfileController::class, 'reset_password'])->name('profile.reset.password.update');
+    Route::put('/profile/contact/update/{id}', [ProfileProfileController::class, 'contact_update'])->name('profile.contact.update');
 });
-
-
-

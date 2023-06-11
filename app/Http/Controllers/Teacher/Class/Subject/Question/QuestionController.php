@@ -54,10 +54,8 @@ class QuestionController extends Controller
 
 
         try {
-            // $answers = $request->input('answers');
-            $true_answer =  $request->input('answer');
-            // $all_answer = $request->input('all_answer');
-            // $all_answer_str = implode(',', $all_answer);
+       
+            $true_answer =  $request->input('answer');         
             $name = $request->input('name');
             $description = $request->input('description');
             $mark = $request->input('mark');

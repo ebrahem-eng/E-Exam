@@ -38,8 +38,15 @@ class Subject extends Model
 
     public function teachers()
     {
-        return $this->belongsToMany(Teacher::class, 'subject__teachers' , 'subject_id','teacher_id'  );
+        return $this->belongsToMany(Teacher::class, 'subject__teachers' , 'subject_id','teacher_id');
     }
+
+     //علاقة الطالب بالمادة
+
+     public function students()
+     {
+         return $this->belongsToMany(Student::class, 'student_subjects' , 'subject_id','student_id');
+     }
 
     //علاقة الامتحان بالمادة
 
