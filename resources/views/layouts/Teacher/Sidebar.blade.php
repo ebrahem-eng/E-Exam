@@ -102,16 +102,17 @@
         </li>
 
         <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <a href="{{route('teacher.question.subjects')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-question-mark"></i>
                 <div data-i18n="Account Settings"> Qustions Manage</div>
             </a>
 
         </li>
+        
         <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <a href="javascript:void(0);" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-book-open"></i>
-                <div data-i18n="Authentications">Add Exam</div>
+                <div data-i18n="Authentications"> Exam Manage</div>
             </a>
 
         </li>

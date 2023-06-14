@@ -68,78 +68,53 @@
                                 function startCountdown() {
                                     var examTime = parseInt('{{ $exam_time }}'); // Get the exam time in minutes
                                     var timerDisplay = document.getElementById('basic-icon-default-company');
-                            
-                                    var timer = setInterval(function () {
+                                    var timer = setInterval(function() {
                                         if (examTime <= 0) {
                                             clearInterval(timer);
                                             timerDisplay.value = 'Time\'s Up!';
-                                            calculateTimeAndSubmitForm(); // Call the function to calculate time and submit the form
+                                            document.getElementById('examForm').submit(); // Submit the form when timer finishes
                                         } else {
                                             var minutes = Math.floor(examTime);
                                             var seconds = (examTime % 1) * 60;
                                             timerDisplay.value = minutes + 'm ' + Math.round(seconds) + 's';
-                                            examTime -= 1/60;
+                                            examTime -= 1 / 60;
                                         }
                                     }, 1000);
-                                }
-                            
-                                // Function to calculate time and submit the form
-                                function calculateTimeAndSubmitForm() {
-                                    var endTime = new Date();
-                                    var startTime = new Date('{{ now() }}');
-                                    var timeDifference = endTime - startTime;
-                            
-                                    // Convert time difference to minutes
-                                    var timeInMinutes = Math.floor(timeDifference / 1000 / 60);
-                            
-                                    // Set the calculated time value in the hidden input field
-                                    document.getElementById('time_taken').value = timeInMinutes;
-                            
-                                    // Submit the form
-                                    document.getElementById('examForm').submit();
                                 }
                             
                                 // Call the startCountdown function when the page is loaded
                                 window.addEventListener('load', startCountdown);
                             </script>
-
-                            <form id="examForm" method="POST"
-                                action="{{ route('student.subject.exam.answer.store') }}">
+                            
+                            <form id="examForm" method="POST" action="{{ route('student.subject.exam.answer.store') }}">
                                 @csrf
                                 @foreach ($questions as $question)
                                     <div class="mb-3">
                                         <h5>Name: {{ $question->name }}</h5>
-                                        <label class="form-label" for="basic-icon-default-email">Description:
-                                            {{ $question->description }}</label>
-
+                                        <label class="form-label" for="basic-icon-default-email">Description: {{ $question->description }}</label>
+                            
                                         <div class="d-flex justify-content-end">
-                                            <label class="form-label" for="basic-icon-default-email">Mark:
-                                                {{ $question->mark }}</label>
+                                            <label class="form-label" for="basic-icon-default-email">Mark: {{ $question->mark }}</label>
                                         </div>
-
-
+                            
                                         @foreach (json_decode($question->answer) as $key => $value)
                                             <div class="form-check mt-3">
-                                                <input name="student_answer[{{ $question->id }}]"
-                                                    class="form-check-input" type="radio" value="{{ $key }}"
-                                                    id="defaultRadio{{ $loop->parent->index }}-{{ $loop->index }}" />
+                                                <input name="student_answer[{{ $question->id }}]" class="form-check-input" type="radio"
+                                                    value="{{ $key }}" id="defaultRadio{{ $loop->parent->index }}-{{ $loop->index }}" />
                                                 <label class="form-check-label"
-                                                    for="defaultRadio{{ $loop->parent->index }}-{{ $loop->index }}">
-                                                    {{ $value }}
-                                                </label>
+                                                    for="defaultRadio{{ $loop->parent->index }}-{{ $loop->index }}">{{ $value }}</label>
                                             </div>
                                         @endforeach
-                                        <h5>------------------------------------------------------------------------
-                                        </h5>
+                            
+                                        <h5>------------------------------------------------------------------------</h5>
                                     </div>
                                 @endforeach
-                                <input type="hidden" name="exam_id" value="{{ $exam_id }}" />
-                                <!-- Hidden input field to store the time taken -->
                             
-
-                                <button type="submit" class="btn btn-primary" onclick="calculateTime()">OK</button>
+                                <input type="hidden" name="exam_id" value="{{ $exam_id }}" />
+                                <button type="submit" class="btn btn-primary">OK</button>
                             </form>
-
+                            
+                            
                         </div>
                     </div>
                 </div>
