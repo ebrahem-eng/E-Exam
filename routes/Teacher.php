@@ -6,6 +6,8 @@ use App\Http\Controllers\Teacher\Class\ClassController;
 use App\Http\Controllers\Teacher\Class\Subject\Exam\ExamController;
 use App\Http\Controllers\Teacher\Class\Subject\Question\QuestionController;
 use App\Http\Controllers\Teacher\Class\Subject\SubjectController;
+use App\Http\Controllers\Teacher\Exam\ExamManageController;
+use App\Http\Controllers\Teacher\Profile\ProfileController as ProfileProfileController;
 use App\Http\Controllers\Teacher\Question\QuestionManageController;
 use App\Http\Controllers\Teacher\Subject\SubjectController as SubjectSubjectController;
 use App\Http\Controllers\Teacher\TeacherController;
@@ -89,4 +91,33 @@ Route::middleware(['teacher'])->name('teacher.')->prefix('teacher')->group(funct
     //==================== delete question from question and bank question subject ==============
 
     Route::delete('/question/subject/bankQuestion/delete' , [QuestionManageController::class , 'delete_question'])->name('question.subject.bank.delete');
+
+
+    //=================== exam manage ================
+
+    //show subject for teacher 
+
+    Route::get('/exam/subject' , [ExamManageController::class , 'index'])->name('exam.subject.manage');
+
+    //show exams in subjects 
+
+    Route::get('/exam/subject/exams' , [ExamManageController::class , 'exams_subject'])->name('exam.subject.exam.manage');
+
+    //show student in exam 
+
+    Route::get('exam/subject/exam/student' , [ExamManageController::class , 'exams_student'])->name('exam.subject.exam.student');
+
+    //show answer students 
+
+    Route::get('exam/subject/exam/student/answer' , [ExamManageController::class , 'exam_student_answer'])->name('exam.subject.exam.student.answer');
+
+
+    //===================================teacher Profile ==============================
+
+    Route::get('/profile', [ProfileProfileController::class, 'index'])->name('profile.index');
+    Route::put('/profile/personal_info/update/{id}', [ProfileProfileController::class, 'personal_update'])->name('profile.personal.update');
+    Route::put('/profile/reset_password/update/{id}', [ProfileProfileController::class, 'reset_password'])->name('profile.reset.password.update');
+    Route::put('/profile/contact/update/{id}', [ProfileProfileController::class, 'contact_update'])->name('profile.contact.update');
+
+
 });

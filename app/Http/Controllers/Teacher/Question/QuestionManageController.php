@@ -70,6 +70,8 @@ class QuestionManageController extends Controller
  
     }
 
+    //حذف سؤال من بنك اسئلة مادة
+    
     public function delete_question(Request $request)
     {
         $question_id = $request->input('question_id');
