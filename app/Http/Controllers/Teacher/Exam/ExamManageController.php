@@ -50,7 +50,6 @@ class ExamManageController extends Controller
         } catch (\Exception $ex) {
             return redirect()->route('notfound');
         }
-
     }
 
 
@@ -58,61 +57,60 @@ class ExamManageController extends Controller
 
     public function exams_subject(Request $request)
     {
- 
-        try{
+
+        try {
 
             $teacher_id = Auth::guard('teacher')->user()->id;
             $subject_id = $request->input('subject_id');
-    
+
             $exams = DB::select("SELECT exams.id AS exam_id, exams.title AS exam_name, exams.time AS exam_time,
                     exams.number_question AS number_question, exams.mark AS exam_mark, exams.status AS exam_status,
                     teachers.name AS teacher_name FROM exams
                     INNER JOIN teachers ON exams.teacher_id = teachers.id
                     WHERE exams.subject_id = $subject_id AND exams.teacher_id = $teacher_id");
-            
-    
-            return view('Teacher/Exam/Subject/Exam/exam_subject' , compact('exams'));
-    
-            }catch(\Exception $ex)
-            {
-                return redirect()->route('notfound');
-            }
 
+
+            return view('Teacher/Exam/Subject/Exam/exam_subject', compact('exams'));
+        } catch (\Exception $ex) {
+            return redirect()->route('notfound');
+        }
     }
 
     //عرض الطلاب الذين قامو بتقديم امتحان معين
 
     public function exams_student(Request $request)
     {
-       $exam_id = $request->input('exam_id');
-       $student_id = student_exam::where('exam_id',$exam_id)->value('student_id');
-       $students = Student::where('id',$student_id)->get();
+        try {
 
-       return view('Teacher/Exam/Subject/Exam/student_exam' , compact('students','exam_id'));
+            $exam_id = $request->input('exam_id');
+            $student_id = student_exam::where('exam_id', $exam_id)->value('student_id');
+            $students = Student::where('id', $student_id)->get();
+
+            return view('Teacher/Exam/Subject/Exam/student_exam', compact('students', 'exam_id'));
+        } catch (\Exception) {
+            return redirect()->route('notfound');
+        }
     }
 
     //عرض اجابات الطلاب
 
     public function exam_student_answer(Request $request)
     {
-               
-        try{
+
+        try {
 
             $exam_id = $request->input('exam_id');
             $question_ids = Exam_Question::where('exam_id', $exam_id)->pluck('question_id');
             $questions = Question::whereIn('id', $question_ids)->get();
             // $student_id = Auth::guard('student')->user()->id;
             $student_id = $request->input('student_id');
-            $exam_mark = Exam::where('id',$exam_id)->value('mark');
+            $exam_mark = Exam::where('id', $exam_id)->value('mark');
             $exam_student = student_exam::where('student_id', $student_id)->where('exam_id', $exam_id)->get();
-         
-           
-            return view('Teacher/Exam/Subject/Exam/student_exam_answer', compact('questions', 'exam_id' , 'exam_student' , 'exam_mark'));
-    
-            }catch(\Exception $ex)
-            {
-                return redirect()->route('notfound');
-            }
 
+
+            return view('Teacher/Exam/Subject/Exam/student_exam_answer', compact('questions', 'exam_id', 'exam_student', 'exam_mark'));
+        } catch (\Exception $ex) {
+            return redirect()->route('notfound');
+        }
     }
 }

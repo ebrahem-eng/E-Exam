@@ -53,30 +53,31 @@ class QuestionManageController extends Controller
 
     public function question_bank_subject(Request $request)
     {
-        try{
+        try {
 
             $subject_id = $request->input('subject_id');
             $question_id = Subject_Question::where('subject_id', $subject_id)->pluck('question_id');
             $question_details = Question::whereIn('id', $question_id)->get();
-    
-            return view('Teacher/Question/Subject/Question/question_bank', compact('question_details', 'subject_id'));
 
-        }catch(\Exception $ex)
-        {
+            return view('Teacher/Question/Subject/Question/question_bank', compact('question_details', 'subject_id'));
+        } catch (\Exception $ex) {
 
             return redirect()->route('notfound');
-
         }
- 
     }
 
-    //حذف سؤال من بنك اسئلة مادة
-    
-    public function delete_question(Request $request)
-    {
-        $question_id = $request->input('question_id');
-        Question::where('id' , $question_id)->delete();
+    // //حذف سؤال من بنك اسئلة مادة
 
-        return redirect()->back()->with('success_message' , 'Question Deleted Successfully');
-    }
+    // public function delete_question(Request $request)
+    // {
+    //     try {
+
+    //         $question_id = $request->input('question_id');
+    //         Question::where('id', $question_id)->delete();
+
+    //         return redirect()->back()->with('success_message', 'Question Deleted Successfully');
+    //     } catch (\Exception) {
+    //         return redirect()->back()->with('error_message', 'Somthing Error Please Try Again');
+    //     }
+    // }
 }

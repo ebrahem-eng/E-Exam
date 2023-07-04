@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
-    
+
 
     //عرض الصفحة الرئيسية للملف الشخصي
 
@@ -94,5 +94,4 @@ class ProfileController extends Controller
             return redirect()->back()->with('error_message', 'Somthing Wrong Please Try Again');
         }
     }
-
 }
