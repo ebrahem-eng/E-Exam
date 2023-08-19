@@ -31,6 +31,7 @@ class QuestionController extends Controller
             $name = $request->input('name');
             $description = $request->input('description');
             $mark = $request->input('mark');
+            $level_question = $request->input('level_question');
             $subject_id = $request->input('subject_id');
 
 
@@ -41,7 +42,7 @@ class QuestionController extends Controller
             }
 
 
-            return view('Teacher/Class/Question/Add_Question2', compact('numberOfOptions', 'answers', 'name', 'description', 'mark', 'subject_id'));
+            return view('Teacher/Class/Question/Add_Question2', compact('numberOfOptions', 'answers', 'name', 'description', 'mark', 'subject_id' , 'level_question'));
         } catch (\Exception $ex) {
             return redirect()->route('notfound');
         }
@@ -60,7 +61,7 @@ class QuestionController extends Controller
             $description = $request->input('description');
             $mark = $request->input('mark');
             $subject_id = $request->input('subject_id');
-
+            $level_question = $request->input('level_question');
             $all_answer = $request->input('all_answer');
 
             $answers = [];
@@ -83,6 +84,7 @@ class QuestionController extends Controller
                 'name' => $name,
                 'description' => $description,
                 'mark' => $mark,
+                'level' => $level_question,
                 'true_answer' => $true_answer,
                 'answer' => json_encode($answers),
             ]);

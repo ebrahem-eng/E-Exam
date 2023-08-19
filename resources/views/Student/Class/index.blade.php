@@ -49,6 +49,7 @@
                     @endif
                 </div>
                 {{-- end message section --}}
+                @if(count($classes)>0)
                 <div class="d-flex justify-content-center flex-wrap mt-5">
                     @foreach ($classes as $class)
                         <div class="col-md-4 col-lg-4 mb-3 mx-4">
@@ -81,7 +82,23 @@
                         </div>
                     @endforeach
                 </div>
-
+                @else
+                
+                <div class="d-flex justify-content-center flex-wrap mt-5">
+                    <div class="col-md-5 col-lg-4 mb-3 mx-3">
+                        <div class="card h-60">
+                            <p class="card-text" >
+                                <span class="badge bg-label-danger me-1" style=" display: flex;
+                                justify-content: center;
+                                align-items: center;">No Data</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+             
+                
+                @endif
+      
 
             </div>
         </div>

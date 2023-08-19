@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Class_Teacher;
 use App\Models\Classe;
 use App\Models\classe_subject;
+use App\Models\Student;
+use App\Models\Student_Class;
 use App\Models\Subject;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
@@ -250,4 +252,127 @@ class RelationShipController extends Controller
         }
     }
     //================end teacher function================
+
+    //======================Student Function ====================
+
+    //عرض صفحة الصفوف الموجودة لدى الطالب
+
+    public function classes_student($student_id, Request $request)
+    {
+        try {
+            $student = Student::find($student_id);
+            $classes = $student->classes;
+            $id = $request->input('id');
+
+            return view('Admin/Student/class', compact('classes', 'id'));
+        } catch (\Exception $ex) {
+            return redirect()->route('notfound');
+        }
+    }
+
+    //عرض صفحة اضافة صف للطالب
+
+    public function create_classes_student(Request $request)
+    {
+        try {
+            $student_id = $request->input('id');
+            $student_name = Student::where('id', $student_id)->value('name');
+            $classes = Classe::all();
+            return view('Admin/Student/Add_Class', compact('student_name', 'classes', 'student_id'));
+        } catch (\Exception $ex) {
+            return redirect()->route('notfound');
+        }
+    }
+
+    //اضافة صف لطالب في قاعدة البيانات
+
+    public function store_classes_student(Request $request)
+    {
+        try {
+            $student = Student::find($request->input('student_id'));
+
+            if (!$student) {
+                return redirect()->route('notfound');
+            }
+
+            $classId = $request->input('classId');
+
+            // Check if the class already exists in the teacher's list of classes
+            if ($student->classes()->wherePivot('class_id', $classId)->exists()) {
+                return redirect()->back()->with('store_error_message', 'Class already exists for Student');
+            }
+
+            $student->classes()->attach($classId);
+            return redirect()->back()->with('store_success_message', 'Class added successfully for Student');
+        } catch (\Exception $ex) {
+            return redirect()->route('notfound');
+        }
+    }
+
+
+    //عرض صفحة المواد الخاصة بالطالب 
+
+    public function subjects_student($student_id, Request $request)
+    {
+        try {
+            $student = Student::find($student_id);
+            $subjects = $student->subjects;
+            $id = $request->input('id');
+
+            return view('Admin/Student/subject', compact('subjects', 'id'));
+        } catch (\Exception $ex) {
+            return redirect()->route('notfound');
+        }
+    }
+
+
+    //عرض صفحة اضافة مادة لطالب 
+
+    public function create_subjects_student(Request $request)
+    {
+        try {
+            $student_id = $request->input('id');
+            $student_name = Student::where('id', $student_id)->value('name');
+            $subjects = Subject::all();
+            return view('Admin/Student/Add_Subject', compact('student_name', 'subjects', 'student_id'));
+        } catch (\Exception $ex) {
+            return redirect()->route('notfound');
+        }
+    }
+
+
+    //تخزين المادة ورقم المدرس في جدول مواد الطالب 
+
+    public function store_subjects_student(Request $request)
+    {
+        try {
+            $student_id = $request->input('student_id');
+            $student = Student::find($student_id);
+            $student_class_ids = Student_Class::where('student_id', $student_id)->pluck('class_id');
+            $subject_id_in_class = classe_subject::whereIn('class_id', $student_class_ids)->pluck('subject_id');
+
+            if (!$student) {
+                return redirect()->route('notfound');
+            }
+
+            $subjectId = $request->input('subjectId');
+
+            //التحقق ان المادة لم يتم اعطائها للطالب وانها غير موجودة داخل الصفوف الخاصة بالطالب
+
+            // Check if the class already exists in the students's list of 
+            if ($student->subjects()->wherePivot('subject_id', $subjectId)->exists() || $subject_id_in_class->intersect($subjectId)->isNotEmpty()) {
+                return redirect()->back()->with('store_error_message', 'Subject already exists for Student');
+            }
+
+            $student->subjects()->attach($subjectId);
+            return redirect()->back()->with('store_success_message', 'Subject added successfully for Student');
+        } catch (\Exception $ex) {
+            return redirect()->route('notfound');
+        }
+    }
+
+
+    //======================end Student Function ====================
+
+
 }

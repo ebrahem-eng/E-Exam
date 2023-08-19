@@ -77,6 +77,8 @@
                                 <input name="description" type="hidden" value="{{ $description }}" />
                                 <input name="mark" type="hidden" value="{{ $mark }}" />
                                 <input name="subject_id" type="hidden" value="{{ $subject_id }}" />
+                                <input name="level_question" type="hidden" value="{{ $level_question }}" />
+                                
                                 <br>
 
                                 <button type="submit" class="btn btn-primary mt-2">Next</button>

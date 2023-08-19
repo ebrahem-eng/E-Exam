@@ -25,6 +25,9 @@ return new class extends Migration
             $table->string('image')->default('-')->nullable(true);
             $table->string('birthday')->default('-');
             $table->softDeletes();
+            $table->integer('created_by')->default(0);
+            $table->integer('updated_by')->default(0);
+            $table->integer('deleted_by')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

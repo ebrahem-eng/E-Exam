@@ -28,6 +28,9 @@ class Student extends Authenticatable
         'birthday',
         'phone',
         'image',
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 
     /**

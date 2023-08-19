@@ -7,7 +7,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Teacher Table</title>
+    <title>Student Subjects Table</title>
 
     <meta name="description" content="" />
 
@@ -30,50 +30,46 @@
 
                         <div class="card">
 
-                            <div class="table-responsive text-nowrap mt-5 ">
+                            <div class="card-header">
+
+                                <h5>Subjects This Student</h5>
+                                <div class="text-end">
+                                    <form method="get" action="{{route('admin.create.subject.student')}}">
+                                        @csrf
+                                        <button class="btn btn-primary "> Add Subject For This Student </a>
+                                            <input name="id" type="hidden" value="{{ $id }}" />
+                                    </form>
+
+                                </div>
+                            </div>
+                            <div class="table-responsive text-nowrap">
+
                                 <table class="table card-table">
                                     <thead>
                                         <tr class="text-nowrap">
                                             <th>#</th>
                                             <th>Name</th>
-                                            <th>Email</th>
+                                            <th>Code</th>
                                             <th>Status</th>
-                                            <th>Phone</th>
-                                            <th>Gender</th>
-                                            <th>Birthday</th>
-                                            <th>Created-At</th>
-                                            <th>Updated-At</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-border-bottom-0">
-                                        @foreach ($teachers as $teacher)
+                                        @foreach ($subjects as $subject)
                                             <tr>
-                                                <td>{{ $teacher->id }}</td>
+                                                <td>{{ $subject->id }}</td>
                                                 <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
-                                                    <strong>{{ $teacher->name }}</strong>
+                                                    <strong>{{ $subject->name }}</strong>
                                                 </td>
-                                                <td>{{ $teacher->email }}</td>
+                                                <td>{{ $subject->code }}</td>
                                                 <td><span>
-                                                        @if ($teacher->status == 0)
+                                                        @if ($subject->status == 0)
                                                             <span class="badge bg-label-danger me-1">Not Active</span>
-                                                        @elseif ($teacher->status == 1)
+                                                        @elseif ($subject->status == 1)
                                                             <span class="badge bg-label-success me-1">Active</span>
                                                         @endif
                                                     </span></td>
-                                                <td>{{ $teacher->phone }}</td>
-                                                <td><span>
-                                                        @if ($teacher->gender == 0)
-                                                            <span>Female</span>
-                                                        @elseif ($teacher->gender == 1)
-                                                            <span>Male</span>
-                                                        @endif
-                                                    </span></td>
-                                                <td>{{ $teacher->birthday }}</td>
 
-                                                <td>{{ $teacher->created_at }}</td>
-
-                                                <td>{{ $teacher->updated_at }}</td>
 
                                                 <td>
                                                     <div class="dropdown">
@@ -88,28 +84,6 @@
                                                             <a class="dropdown-item" href="javascript:void(0);"><i
                                                                     class="bx bx-trash me-1"></i> Delete</a>
 
-
-                                                            <form
-                                                                action="{{route('admin.class.teacher' , $teacher->id)}}"
-                                                                method="get">
-                                                                @csrf
-                                                                <button class="dropdown-item"><i
-                                                                        class="bx bx-book me-1"></i> Class</button>
-
-                                                                <input name="id" type="hidden"
-                                                                    value="{{$teacher->id}}" />
-                                                            </form>
-
-                                                            <form
-                                                                action="{{route('admin.subject.teacher' , $teacher->id)}}"
-                                                                method="get">
-                                                                @csrf
-                                                                <button class="dropdown-item"><i class="bx bx-pin me-1"></i>
-                                                                    Subjects</button>
-
-                                                                <input name="id" type="hidden"
-                                                                    value="{{$teacher->id}}" />
-                                                            </form>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -121,6 +95,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

@@ -59,6 +59,18 @@
                                              required />
                                     </div>
                                 </div>
+
+                                <div class="mb-3">
+                                    <label for="exampleFormControlSelect1" class="form-label">Level Question</label>
+                                    <select class="form-select" name="level_question" 
+                                        aria-label="Default select example">
+                                        <option selected>Open this select menu</option>
+                                        <option value="0">Easy</option>
+                                        <option value="1">Medium</option>
+                                        <option value="2">Difficult</option>
+                                    </select>
+                                </div>
+
                                 <div class="mb-3">
                                     <label class="form-label" for="option">Description Question</label>
                                     <div class="input-group input-group-merge">

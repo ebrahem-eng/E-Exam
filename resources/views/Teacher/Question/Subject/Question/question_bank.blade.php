@@ -57,6 +57,7 @@
                                         <tr class="text-nowrap">
                                             <th>#</th>
                                             <th>Name Question</th>
+                                            <th>Question Level</th>
                                             <th>Answer</th>
                                             <th>True Answer</th>
                                             <th>Description</th>
@@ -71,6 +72,20 @@
                                                 <td>{{ $question_detail->id }}</td>
                                                 <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
                                                     <strong>{{ $question_detail->name }}</strong>
+                                                </td>
+
+                                                <td>
+                                                    @if($question_detail->level == 0)
+                                                    <strong>Easy</strong> 
+                                                    @elseif($question_detail->level == 1)
+
+                                                    <strong>Medium</strong> 
+
+                                                    @elseif($question_detail->level == 2)
+
+                                                    <strong>Difficult</strong>
+
+                                                    @endif
                                                 </td>
 
                                                 <td>

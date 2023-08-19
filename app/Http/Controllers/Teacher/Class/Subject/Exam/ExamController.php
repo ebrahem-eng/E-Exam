@@ -189,6 +189,7 @@ class ExamController extends Controller
             $name = $request->input('name');
             $description = $request->input('description');
             $mark = $request->input('mark');
+            $level_question = $request->input('level_question');
             $subject_id = $request->input('subject_id');
             $exam_id = $request->input('exam_id');
             $number_questions = $request->input('number_question');
@@ -200,7 +201,7 @@ class ExamController extends Controller
             }
 
 
-            return view('Teacher/Class/Exam/New_Question/new_question2', compact('numberOfOptions', 'answers', 'name', 'description', 'mark', 'subject_id', 'exam_id', 'number_questions'));
+            return view('Teacher/Class/Exam/New_Question/new_question2', compact('numberOfOptions', 'answers', 'name', 'description', 'mark', 'subject_id', 'exam_id', 'number_questions' , 'level_question'));
         } catch (\Exception) {
             return redirect()->route('notfound');
         }
@@ -217,6 +218,7 @@ class ExamController extends Controller
             $description = $request->input('description');
             $mark = $request->input('mark');
             $subject_id = $request->input('subject_id');
+            $level_question = $request->input('level_question');
 
             $all_answer = $request->input('all_answer');
             $exam_id = $request->input('exam_id');
@@ -242,6 +244,7 @@ class ExamController extends Controller
                 'name' => $name,
                 'description' => $description,
                 'mark' => $mark,
+                'level' => $level_question,
                 'true_answer' => $true_answer,
                 'answer' => json_encode($answers),
             ]);

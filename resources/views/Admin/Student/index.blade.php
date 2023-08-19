@@ -7,7 +7,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Teacher Table</title>
+    <title>Student Table</title>
 
     <meta name="description" content="" />
 
@@ -31,6 +31,7 @@
                         <div class="card">
 
                             <div class="table-responsive text-nowrap mt-5 ">
+
                                 <table class="table card-table">
                                     <thead>
                                         <tr class="text-nowrap">
@@ -47,33 +48,33 @@
                                         </tr>
                                     </thead>
                                     <tbody class="table-border-bottom-0">
-                                        @foreach ($teachers as $teacher)
+                                        @foreach ($students as $student)
                                             <tr>
-                                                <td>{{ $teacher->id }}</td>
+                                                <td>{{ $student->id }}</td>
                                                 <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
-                                                    <strong>{{ $teacher->name }}</strong>
+                                                    <strong>{{ $student->name }}</strong>
                                                 </td>
-                                                <td>{{ $teacher->email }}</td>
+                                                <td>{{ $student->email }}</td>
                                                 <td><span>
-                                                        @if ($teacher->status == 0)
+                                                        @if ($student->status == 0)
                                                             <span class="badge bg-label-danger me-1">Not Active</span>
-                                                        @elseif ($teacher->status == 1)
+                                                        @elseif ($student->status == 1)
                                                             <span class="badge bg-label-success me-1">Active</span>
                                                         @endif
                                                     </span></td>
-                                                <td>{{ $teacher->phone }}</td>
+                                                <td>{{ $student->phone }}</td>
                                                 <td><span>
-                                                        @if ($teacher->gender == 0)
+                                                        @if ($student->gender == 0)
                                                             <span>Female</span>
-                                                        @elseif ($teacher->gender == 1)
+                                                        @elseif ($student->gender == 1)
                                                             <span>Male</span>
                                                         @endif
                                                     </span></td>
-                                                <td>{{ $teacher->birthday }}</td>
+                                                <td>{{ $student->birthday }}</td>
 
-                                                <td>{{ $teacher->created_at }}</td>
+                                                <td>{{ $student->created_at }}</td>
 
-                                                <td>{{ $teacher->updated_at }}</td>
+                                                <td>{{ $student->updated_at }}</td>
 
                                                 <td>
                                                     <div class="dropdown">
@@ -90,25 +91,25 @@
 
 
                                                             <form
-                                                                action="{{route('admin.class.teacher' , $teacher->id)}}"
+                                                                action="{{route('admin.class.student' , $student->id)}}"
                                                                 method="get">
                                                                 @csrf
                                                                 <button class="dropdown-item"><i
                                                                         class="bx bx-book me-1"></i> Class</button>
 
                                                                 <input name="id" type="hidden"
-                                                                    value="{{$teacher->id}}" />
+                                                                    value="{{$student->id}}" />
                                                             </form>
 
                                                             <form
-                                                                action="{{route('admin.subject.teacher' , $teacher->id)}}"
+                                                                action="{{route('admin.subject.student' , $student->id)}}"
                                                                 method="get">
                                                                 @csrf
                                                                 <button class="dropdown-item"><i class="bx bx-pin me-1"></i>
                                                                     Subjects</button>
 
                                                                 <input name="id" type="hidden"
-                                                                    value="{{$teacher->id}}" />
+                                                                    value="{{$student->id}}" />
                                                             </form>
                                                         </div>
                                                     </div>

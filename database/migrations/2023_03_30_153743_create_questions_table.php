@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('answer');
+            $table->tinyInteger('level');
             $table->integer('true_answer');
             $table->text('description')->nullable(true);
             $table->integer('mark');

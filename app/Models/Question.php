@@ -15,6 +15,7 @@ class Question extends Model
         'true_answer',
         'description',
         'mark',
+        'level',
     ];
 
     //علاقة جدول الاسئلة مع جدول المواد 

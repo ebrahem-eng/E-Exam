@@ -93,11 +93,13 @@
                             <br>
                             <div class="mb-3">
                                 <label class="form-label" for="option">Questions :</label>
+                                <div class="table-responsive text-nowrap mt-5 ">
                                 <table class="table card-table">
                                     <thead>
                                         <tr class="text-nowrap">
                                             <th>#</th>
                                             <th>Name Question</th>
+                                            <th>Question Level</th>
                                             <th>Answer</th>
                                             <th>True Answer</th>
                                             <th>Description</th>
@@ -113,6 +115,21 @@
                                                 <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
                                                     <strong>{{ $question_detail->name }}</strong>
                                                 </td>
+
+                                                 <td>
+                                                    @if($question_detail->level == 0)
+                                                    <strong>Easy</strong> 
+                                                    @elseif($question_detail->level == 1)
+
+                                                    <strong>Medium</strong> 
+
+                                                    @elseif($question_detail->level == 2)
+
+                                                    <strong>Difficult</strong>
+
+                                                    @endif
+                                                </td>
+                                                
                                                 <td>
                                                     @foreach (json_decode($question_detail->answer) as $key => $answer)
                                                         {{ $key }}: {{ $answer }}<br>
@@ -141,6 +158,7 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                </div>
                                 <br> <br>
                             </div>
 

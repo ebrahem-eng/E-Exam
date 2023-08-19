@@ -157,13 +157,13 @@
 
             <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="pages-misc-error.html" class="menu-link">
+                  <a href="{{route('admin.student.index')}}" class="menu-link">
                     <div data-i18n="Error">Students Table</div>
                   </a>
                 </li>
 
                 <li class="menu-item">
-                  <a href="pages-misc-under-maintenance.html" class="menu-link">
+                  <a href="{{route('admin.student.create')}}" class="menu-link">
                     <div data-i18n="Under Maintenance">Add Student</div>
                   </a>
                 </li>

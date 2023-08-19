@@ -74,6 +74,8 @@
                                 <input name="subject_id" type="hidden" value="{{ $subject_id }}" />
                                 <input type="hidden" name="exam_id" value="{{$exam_id}}" />
                                 <input type="hidden" name="number_question" value="{{$number_questions}}"/>
+                                <input type="hidden" name="level_question" value="{{$level_question}}"/>
+                                
                                 <br>
 
                                 <button type="submit" class="btn btn-primary mt-2">Next</button>
