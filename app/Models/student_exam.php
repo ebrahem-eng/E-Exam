@@ -13,7 +13,7 @@ class student_exam extends Model
         'student_id',
         'exam_id',
         'question_answer_student',
-    
+        'time_on_exam',
     ];
 
 }

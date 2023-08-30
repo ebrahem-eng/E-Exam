@@ -58,7 +58,7 @@
                                                             <span class="badge bg-label-success me-1">Active</span>
                                                         @endif
                                                     </span></td>
-                                                <td>{{ $class->created_by }}</td>
+                                                <td>{{ $adminDetails[$class->id] }}</td>
 
                                                 <td>{{ $class->created_at }}</td>
 
@@ -77,15 +77,18 @@
                                                             <a class="dropdown-item" href="javascript:void(0);"><i
                                                                     class="bx bx-trash me-1"></i> Delete</a>
 
-                                                                    <form action="{{ route('admin.class.subject', $class->id) }}" method="get">
-                                                                        @csrf
-                                                                        <button class="dropdown-item"><i
-                                                                            class="bx bx-book me-1"></i> Subjects</button>
+                                                            <form
+                                                                action="{{ route('admin.class.subject', $class->id) }}"
+                                                                method="get">
+                                                                @csrf
+                                                                <button class="dropdown-item"><i
+                                                                        class="bx bx-book me-1"></i> Subjects</button>
 
-                                                                            <input name="id" type="hidden" value="{{$class->id}}" />
-                                                                    </form>
-                                                           
-                                                                   
+                                                                <input name="id" type="hidden"
+                                                                    value="{{ $class->id }}" />
+                                                            </form>
+
+
                                                         </div>
                                                     </div>
                                                 </td>

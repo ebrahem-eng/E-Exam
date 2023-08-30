@@ -48,6 +48,7 @@ class ExamController extends Controller
                 'status' => $status_exam,
                 'subject_id' => $subject_id,
                 'teacher_id' => $teacher_id,
+                'created_at' => now(),
             ]);
 
             $exam_id = $exam->id;
@@ -100,7 +101,6 @@ class ExamController extends Controller
             $question_id = Subject_Question::where('subject_id', $subject_id)->pluck('question_id');
             $question_details = Question::whereIn('id', $question_id)->get();
             $number_questions = $request->input('number_question');
-
             $exam_questions_count = Exam_Question::where('exam_id', $exam_id)->count();
 
             if ($exam_questions_count < $number_questions) {
@@ -124,18 +124,17 @@ class ExamController extends Controller
             $subject_id = $request->input('subject_id');
             $question_id = $request->input('question_id');
             $number_questions = $request->input('number_question');
+            $check_question_existing = Exam_Question::where('exam_id', $exam_id)->where('question_id', $question_id)->get();
 
-
-            // Exam_Question::create([
-            //     'exam_id' => $exam_id,
-            //     'question_id' => $question_id,
-            // ]);
             $exam = Exam::find($exam_id);
 
             if (!$exam) {
                 return redirect()->route('notfound');
             }
 
+            if (count($check_question_existing) > 0) {
+                return redirect()->back()->with('error_message', 'You Have Chosen This Question Please Choose Another Question');
+            }
             $exam->questions()->attach($question_id);
 
             $question_ids = Exam_Question::where('exam_id', $exam_id)->pluck('question_id');
@@ -150,9 +149,15 @@ class ExamController extends Controller
 
     //الانتهاء من انشاء الامتحان والذهاب للصفحة الرئيسية
 
-    public function finish_choose_question()
+    public function finish_choose_question(Request $request)
     {
         try {
+            $exam_id = $request->input('exam_id');
+            $exam_question = Exam_Question::where('exam_id', $exam_id)->get();
+
+            if (count($exam_question) == 0) {
+                return redirect()->back()->with('error_message', 'You Cant Create Empty Exam Please Choose Questions');
+            }
             return redirect()->route('teacher.dashboard')->with('store_success_message', 'The Exam Created Successfully');
         } catch (\Exception) {
             return redirect()->route('notfound');
@@ -201,7 +206,7 @@ class ExamController extends Controller
             }
 
 
-            return view('Teacher/Class/Exam/New_Question/new_question2', compact('numberOfOptions', 'answers', 'name', 'description', 'mark', 'subject_id', 'exam_id', 'number_questions' , 'level_question'));
+            return view('Teacher/Class/Exam/New_Question/new_question2', compact('numberOfOptions', 'answers', 'name', 'description', 'mark', 'subject_id', 'exam_id', 'number_questions', 'level_question'));
         } catch (\Exception) {
             return redirect()->route('notfound');
         }

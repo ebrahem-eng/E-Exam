@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Subject;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,8 +15,16 @@ class SubjectController extends Controller
         public function index()
         {
             try {
+                $adminDetails = [];
                 $subjects = Subject::all();
-                return view('Admin/Subject/index', compact('subjects'));
+                 foreach($subjects as $subject)
+                {
+                    $admin_id = $subject->created_by;
+                    $admin_name = Admin::where('id',$admin_id)->value('name');
+                    $adminDetails[$subject->id] = $admin_name;
+    
+                }
+                return view('Admin/Subject/index', compact('subjects' , 'adminDetails'));
             } catch (\Exception $ex) {
                 return redirect()->route('notfound');
             }

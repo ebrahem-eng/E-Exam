@@ -50,6 +50,7 @@
                                             <th>Exam Mark</th>
                                             <th>Number Of Question</th>
                                             <th>Teacher Name</th>
+                                            <th>Created Date</th>
                                             <th>Status</th>
                                             <th></th>
 
@@ -66,6 +67,7 @@
                                                 <td>{{ $exam->exam_mark }}</td>
                                                 <td>{{ $exam->number_question }}</td>
                                                 <td>{{ $exam->teacher_name }}</td>
+                                                <td>{{ $exam->created_at }}</td>
                                                 <td><span>
                                                         @if ($exam->exam_status == 0)
                                                             <span class="badge bg-label-danger me-1">Not Active</span>

@@ -58,7 +58,7 @@
                                                 <span class="badge bg-label-success me-1">Active</span>
                                             @endif
                                         </span></td>
-                                    <td>{{ $subject->created_by }}</td>
+                                    <td>{{ $adminDetails[$subject->id]}}</td>
 
                                     <td>{{ $subject->created_at }}</td>
 

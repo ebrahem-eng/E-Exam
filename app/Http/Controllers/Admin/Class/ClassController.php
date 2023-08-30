@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Class;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Classe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,8 +15,16 @@ class ClassController extends Controller
     public function index()
     {
         try {
+            $adminDetails = [];
             $classes = Classe::all();
-            return view('Admin/Class/index', compact('classes'));
+            foreach($classes as $class)
+            {
+                $admin_id = $class->created_by;
+                $admin_name = Admin::where('id',$admin_id)->value('name');
+                $adminDetails[$class->id] = $admin_name;
+
+            }
+            return view('Admin/Class/index', compact('classes' , 'adminDetails'));
         } catch (\Exception $ex) {
             return redirect()->route('notfound');
         }

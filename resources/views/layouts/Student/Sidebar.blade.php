@@ -1,3 +1,9 @@
+@include('layouts.Student.loading')
+<div class="loading-overlay">
+  <div class="loading-spinner"></div>
+</div>
+
+
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
         <a href="index.html" class="app-brand-link">

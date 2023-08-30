@@ -65,7 +65,7 @@ class ExamManageController extends Controller
 
             $exams = DB::select("SELECT exams.id AS exam_id, exams.title AS exam_name, exams.time AS exam_time,
                     exams.number_question AS number_question, exams.mark AS exam_mark, exams.status AS exam_status,
-                    teachers.name AS teacher_name FROM exams
+                    teachers.name AS teacher_name , exams.created_at AS created_at FROM exams
                     INNER JOIN teachers ON exams.teacher_id = teachers.id
                     WHERE exams.subject_id = $subject_id AND exams.teacher_id = $teacher_id");
 
@@ -83,10 +83,17 @@ class ExamManageController extends Controller
         try {
 
             $exam_id = $request->input('exam_id');
-            $student_id = student_exam::where('exam_id', $exam_id)->value('student_id');
-            $students = Student::where('id', $student_id)->get();
+            $student_id = student_exam::where('exam_id', $exam_id)->pluck('student_id');
+            $students = Student::whereIn('id', $student_id)->get();
+            $exam_submission_date = student_exam::whereIn('student_id', $student_id)
+            ->where('exam_id', $exam_id)
+            ->pluck('created_at');
 
-            return view('Teacher/Exam/Subject/Exam/student_exam', compact('students', 'exam_id'));
+            $exam_time_submit = student_exam::whereIn('student_id', $student_id)
+            ->where('exam_id', $exam_id)
+            ->pluck('time_on_exam');
+
+            return view('Teacher/Exam/Subject/Exam/student_exam', compact('students', 'exam_id' ,'exam_submission_date' , 'exam_time_submit'));
         } catch (\Exception) {
             return redirect()->route('notfound');
         }

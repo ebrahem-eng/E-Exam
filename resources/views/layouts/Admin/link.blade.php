@@ -1,3 +1,4 @@
+
 <link rel="icon" type="image/x-icon" href="{{asset('assets/assets/img/favicon/favicon.ico')}}" />
 
     <!-- Fonts -->
@@ -44,6 +45,7 @@
     <!-- Vendors JS -->
     <script src="{{asset('assets/assets/vendor/libs/apex-charts/apexcharts.js')}}"></script>
 
+
     <!-- Main JS -->
     <script src="{{asset('assets/assets/js/main.js')}}"></script>
 
@@ -52,3 +54,5 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+   

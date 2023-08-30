@@ -15,24 +15,21 @@ class SubjectController extends Controller
 
     public function new_exam_in_subject(Request $request)
     {
-        try{
+        try {
 
-        $subject_id = $request->input('subject_id');
+            $subject_id = $request->input('subject_id');
 
-        $exams = DB::select("SELECT exams.id AS exam_id, exams.title AS exam_name, exams.time AS exam_time,
+            $exams = DB::select("SELECT exams.id AS exam_id, exams.title AS exam_name, exams.time AS exam_time,
                 exams.number_question AS number_question, exams.mark AS exam_mark, exams.status AS exam_status,
                 teachers.name AS teacher_name FROM exams
                 INNER JOIN teachers ON exams.teacher_id = teachers.id
                 WHERE exams.subject_id = $subject_id");
-        
 
-        return view('Student/Class/Subject/Exam/exam' , compact('exams'));
 
-        }catch(\Exception $ex)
-        {
+            return view('Student/Class/Subject/Exam/exam', compact('exams'));
+        } catch (\Exception $ex) {
             return redirect()->route('notfound');
         }
-
     }
 
     //عرض الامتحانات التي قام الطالب بتقديمها
@@ -40,31 +37,36 @@ class SubjectController extends Controller
     public function my_exam_subject(Request $request)
     {
 
-        try{
+        try {
 
             $subject_id = $request->input('subject_id');
             $exam_ids = Exam::where('subject_id', $subject_id)->pluck('id');
             $student_id = Auth::guard('student')->user()->id;
-            
+
             $exam_students = student_exam::where('student_id', $student_id)->whereIn('exam_id', $exam_ids)->get();
-            
+
             $exam_student_ids = $exam_students->pluck('exam_id')->toArray();
-            
+
+            $exam_submission_dates = student_exam::where('student_id', $student_id)->whereIn('exam_id', $exam_ids)->pluck('created_at');
+            $exam_time_submit = student_exam::where('student_id', $student_id)->whereIn('exam_id', $exam_ids)->pluck('time_on_exam');
+
             $exams = DB::table('exams')
-                ->select('exams.id AS exam_id', 'exams.title AS exam_name', 'exams.time AS exam_time', 'exams.number_question AS number_question', 'exams.mark AS exam_mark', 'exams.status AS exam_status', 'teachers.name AS teacher_name')
+                ->select(
+                    'exams.id AS exam_id',
+                    'exams.title AS exam_name',
+                    'exams.time AS exam_time',
+                    'exams.number_question AS number_question',
+                    'exams.mark AS exam_mark',
+                    'exams.status AS exam_status',
+                    'teachers.name AS teacher_name'
+                )
                 ->join('teachers', 'exams.teacher_id', '=', 'teachers.id')
                 ->whereIn('exams.id', $exam_student_ids)
                 ->get();
-            
-            return view('Student/Class/Subject/Exam/myexam' , compact('exams'));
-        
-            
-        }catch(\Exception $ex)
-        {
+
+            return view('Student/Class/Subject/Exam/myexam', compact('exams', 'exam_submission_dates' ,'exam_time_submit'));
+        } catch (\Exception $ex) {
             return redirect()->route('notfound');
         }
-   
-
-
     }
 }

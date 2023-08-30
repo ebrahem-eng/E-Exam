@@ -50,13 +50,15 @@
                                             <th>Exam Mark</th>
                                             <th>Number Of Question</th>
                                             <th>Teacher Name</th>
+                                            <th>Time In Exam(Minutes)</th>
+                                            <th>Exam Submission Date</th>
                                             <th>Status</th>
                                             <th></th>
 
                                         </tr>
                                     </thead>
                                     <tbody class="table-border-bottom-0">
-                                        @foreach ($exams as $exam)
+                                        @foreach ($exams as $index => $exam)
                                             <tr>
                                                 <td>{{ $exam->exam_id }}</td>
                                                 <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
@@ -66,6 +68,8 @@
                                                 <td>{{ $exam->exam_mark }}</td>
                                                 <td>{{ $exam->number_question }}</td>
                                                 <td>{{ $exam->teacher_name }}</td>
+                                                <td>{{ $exam_time_submit[$index] /60 }} Minutes</td>
+                                                <td>{{ $exam_submission_dates[$index] }}</td>
                                                 <td><span>
                                                         @if ($exam->exam_status == 0)
                                                             <span class="badge bg-label-danger me-1">Not Active</span>

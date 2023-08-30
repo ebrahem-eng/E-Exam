@@ -166,6 +166,7 @@
                                 <div class="col-md-6">
                                     <form method="get" action="{{ route('teacher.finish.exam.choose.question') }}">
                                         @csrf
+                                        <input type="hidden" name="exam_id" value="{{$exam_id}}" >
                                         <button style="margin-left: 150px;" type="submit"
                                             class="btn btn-primary mt-2">Finish</button>
                                     </form>

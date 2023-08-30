@@ -29,16 +29,16 @@
                     <div class="col-lg-11 col-md-12 col-12 mt-5  ">
 
                         <div class="card">
-                              {{-- message section --}}
-                              @if (session('error_message'))
-                              <div class="alert alert-danger alert-dismissible" role="alert">
-                                  {{ session('error_message') }}
-                                  <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                      aria-label="Close"></button>
-                              </div>
-                          @endif
+                            {{-- message section --}}
+                            @if (session('error_message'))
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    {{ session('error_message') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            @endif
 
-                          {{-- end message success --}}
+                            {{-- end message success --}}
 
                             <div class="table-responsive text-nowrap mt-5 ">
                                 <table class="table card-table">
@@ -50,12 +50,14 @@
                                             <th>Status</th>
                                             <th>Gender</th>
                                             <th>Phone</th>
+                                            <th>Time In Exam(Minutes)</th>
+                                            <th>Exam Submission Dates</th>
                                             <th></th>
 
                                         </tr>
                                     </thead>
                                     <tbody class="table-border-bottom-0">
-                                        @foreach ($students as $student)
+                                        @foreach ($students as $index => $student)
                                             <tr>
                                                 <td>{{ $student->id }}</td>
                                                 <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
@@ -63,30 +65,34 @@
                                                 </td>
                                                 <td>{{ $student->email }}</td>
                                                 <td><span>
-                                                    @if ($student->status == 0)
-                                                        <span class="badge bg-label-danger me-1">Not Active</span>
-                                                    @elseif ($student->status == 1)
-                                                        <span class="badge bg-label-success me-1">Active</span>
-                                                    @endif
-                                                </span></td>
+                                                        @if ($student->status == 0)
+                                                            <span class="badge bg-label-danger me-1">Not Active</span>
+                                                        @elseif ($student->status == 1)
+                                                            <span class="badge bg-label-success me-1">Active</span>
+                                                        @endif
+                                                    </span></td>
 
                                                 <td><span>
-                                                    @if ($student->gender == 0)
-                                                        <span>Women</span>
-                                                    @elseif ($student->gender == 1)
-                                                        <span>Men</span>
-                                                    @endif
-                                                </span></td>
+                                                        @if ($student->gender == 0)
+                                                            <span>Women</span>
+                                                        @elseif ($student->gender == 1)
+                                                            <span>Men</span>
+                                                        @endif
+                                                    </span></td>
                                                 <td>{{ $student->phone }}</td>
-                                               
-                                             
+                                                <td>{{ $exam_time_submit[$index] / 60 }} Minutes</td>
+                                                <td>{{ $exam_submission_date[$index] }}</td>
 
                                                 <td>
-                                                    <form action="{{route('teacher.exam.subject.exam.student.answer')}}" method="GET">
+                                                    <form
+                                                        action="{{ route('teacher.exam.subject.exam.student.answer') }}"
+                                                        method="GET">
                                                         @csrf
                                                         <button class="btn btn-primary">Show Answer</button>
-                                                        <input type="hidden" name="student_id" value="{{$student->id}}" />
-                                                        <input type="hidden" name="exam_id" value="{{$exam_id}}" />
+                                                        <input type="hidden" name="student_id"
+                                                            value="{{ $student->id }}" />
+                                                        <input type="hidden" name="exam_id"
+                                                            value="{{ $exam_id }}" />
                                                     </form>
                                                 </td>
 
